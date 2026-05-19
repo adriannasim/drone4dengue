@@ -77,6 +77,7 @@ export default function DataManagementPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [uploadMsg, setUploadMsg] = useState<string | null>(null)
+  const [uploadStatus, setUploadStatus] = useState<'success' | 'error' | null>(null)
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRows, setTotalRows] = useState(0);
@@ -270,6 +271,7 @@ export default function DataManagementPage() {
     if (!file) return
     setUploading(true)
     setUploadMsg(null)
+    setUploadStatus(null)
     try {
       const formData = new FormData()
       formData.append('file', file)
@@ -280,15 +282,29 @@ export default function DataManagementPage() {
           Authorization: `Bearer ${getToken()}`
         }
       })
-      if (!res.ok) throw new Error('Upload failed')
+      
       const result = await res.json()
-      setUploadMsg(`Imported: ${result.imported}, Errors: ${result.errors.length}`)
+      
+      if (!res.ok) {
+        // Handle error response
+        const errorMsg = result.error?.message || result.error || 'Upload failed'
+        throw new Error(errorMsg)
+      }
+      
+      // Success
+      const successMsg = `✓ Successfully imported: ${result.imported} record${result.imported !== 1 ? 's' : ''}`
+      const errorMsg = result.errors?.length > 0 ? ` (${result.errors.length} error${result.errors.length !== 1 ? 's' : ''} encountered)` : ''
+      setUploadMsg(successMsg + errorMsg)
+      setUploadStatus('success')
+      
       // Refetch data by triggering search if filters are applied
       if (hasAppliedFilters) {
-        setSearchTrigger(prev => prev + 1);
+        setSearchTrigger(prev => prev + 1)
       }
     } catch (e: any) {
-      setUploadMsg(e.message)
+      const errorMsg = e.message || 'Upload failed. Please try again.'
+      setUploadMsg(`✗ ${errorMsg}`)
+      setUploadStatus('error')
     } finally {
       setUploading(false)
     }
@@ -527,14 +543,14 @@ export default function DataManagementPage() {
           </motion.div>
 
           {/* Upload Button */}
-          {/* <motion.div variants={item} className="mb-8">
+          <motion.div variants={item} className="mb-8">
             <button
               className={`bg-accent-blue text-white px-8 py-3 rounded-lg font-bold text-base hover:bg-secondary-blue transition-all flex items-center gap-2 shadow-md ${uploading ? "opacity-50 cursor-not-allowed" : ""}`}
               onClick={onUploadClick}
               disabled={uploading}
             >
               <FiUpload />
-              Upload Data
+              {uploading ? 'Uploading...' : 'Upload Data'}
             </button>
             <input
               type="file"
@@ -544,9 +560,17 @@ export default function DataManagementPage() {
               onChange={onFileChange}
             />
             {uploadMsg && (
-              <div className="mt-2 text-sm text-gray-700">{uploadMsg}</div>
+              <div className={`mt-3 p-3 rounded-lg text-sm font-medium ${
+                uploadStatus === 'success'
+                  ? 'text-green-700 bg-green-50 border border-green-200'
+                  : uploadStatus === 'error'
+                  ? 'text-red-700 bg-red-50 border border-red-200'
+                  : 'text-gray-700 bg-gray-50 border border-gray-200'
+              }`}>
+                {uploadMsg}
+              </div>
             )}
-          </motion.div> */}
+          </motion.div>
 
           {/* Data Filters */}
           <motion.div variants={item} className="mb-8">

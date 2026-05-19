@@ -221,20 +221,19 @@ async function uploadCSV(req, res) {
   if (!req.file) return sendValidationError(res, ['No file uploaded']);
   
   const { companyLocationId } = req.body;
-  if (!companyLocationId) {
-    return sendValidationError(res, ['companyLocationId is required']);
-  }
   
-  // Verify the companyLocationId belongs to the company
-  const companyLocation = await prisma.companyLocation.findFirst({
-    where: { 
-      id: companyLocationId,
-      companyId: req.companyId 
+  // If companyLocationId is provided, validate it
+  if (companyLocationId) {
+    const companyLocation = await prisma.companyLocation.findFirst({
+      where: { 
+        id: companyLocationId,
+        companyId: req.companyId 
+      }
+    });
+    
+    if (!companyLocation) {
+      return sendValidationError(res, ['Invalid company location ID or location does not belong to your company']);
     }
-  });
-  
-  if (!companyLocation) {
-    return sendValidationError(res, ['Invalid company location ID or location does not belong to your company']);
   }
   
   const filePath = req.file.path;
@@ -255,8 +254,13 @@ async function uploadCSV(req, res) {
           source: row.source || 'csv',
           latitude: row.latitude ? parseFloat(row.latitude) : null,
           longitude: row.longitude ? parseFloat(row.longitude) : null,
-          companyLocationId,
         };
+        
+        // Only include companyLocationId if provided
+        if (companyLocationId) {
+          data.companyLocationId = companyLocationId;
+        }
+        
         const record = await prisma.dengueData.create({ data });
         results.push(record);
         

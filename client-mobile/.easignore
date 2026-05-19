@@ -1,3 +1,53 @@
+# dependencies and caches
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.expo
+.expo-shared
+.cache
+tmp
+temp
+
+# build outputs
+dist
+build
+web-build
+coverage
+
+# VCS/editor
+.git
+.gitignore
+.vscode
+.idea
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# large assets not needed for native build
+**/*.mp4
+**/*.mov
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.psd
+**/*.ai
+
+# docs and misc
+docs
+*.md
+
+# local env files (if not required in build)
+.env.local
+.env.development
+
+node_modules
+.git
+.expo
+dist
+build
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # dependencies
