@@ -221,6 +221,7 @@ export default function RegisterScreen() {
                                         />
                                         <TextInput
                                             style={{ flex: 1, paddingVertical: 16, fontSize: 16, color: '#0F2854' }}
+                                            testID="register-email"
                                             placeholder="Enter your email"
                                             placeholderTextColor="rgba(15, 40, 84, 0.55)"
                                             value={email}
@@ -235,7 +236,7 @@ export default function RegisterScreen() {
                                         />
                                     </View>
                                     {emailError ? (
-                                        <Text style={{ fontSize: 12, color: '#DC2626', marginTop: 4, marginLeft: 4 }}>
+                                        <Text testID="register-email-error" style={{ fontSize: 12, color: '#DC2626', marginTop: 4, marginLeft: 4 }}>
                                             {emailError}
                                         </Text>
                                     ) : null}
@@ -261,6 +262,7 @@ export default function RegisterScreen() {
                                         />
                                         <TextInput
                                             style={{ flex: 1, paddingVertical: 16, fontSize: 16, color: '#0F2854' }}
+                                            testID="register-password"
                                             placeholder="Create a password"
                                             placeholderTextColor="rgba(15, 40, 84, 0.55)"
                                             value={password}
@@ -302,6 +304,7 @@ export default function RegisterScreen() {
                                         />
                                         <TextInput
                                             style={{ flex: 1, paddingVertical: 16, fontSize: 16, color: '#0F2854' }}
+                                            testID="register-confirm-password"
                                             placeholder="Confirm your password"
                                             placeholderTextColor="rgba(15, 40, 84, 0.55)"
                                             value={confirmPassword}
@@ -322,6 +325,7 @@ export default function RegisterScreen() {
 
                                 {/* Terms and Checkbox */}
                                 <Pressable 
+                                    testID="register-terms-checkbox"
                                     style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 24 }}
                                     onPress={() => setAgree(!agree)}
                                 >
@@ -343,6 +347,7 @@ export default function RegisterScreen() {
                                         <Text style={{ fontSize: 14, color: '#0F2854', lineHeight: 20 }}>
                                             I agree to DengueEye's{' '}
                                             <Text 
+                                                testID="register-terms-link"
                                                 style={{ color: '#1C4D8D', fontWeight: '600' }}
                                                 onPress={() => router.push('/(auth)/terms')}
                                             >
@@ -350,6 +355,7 @@ export default function RegisterScreen() {
                                             </Text>
                                             {' '}and{' '}
                                             <Text 
+                                                testID="register-privacy-link"
                                                 style={{ color: '#1C4D8D', fontWeight: '600' }}
                                                 onPress={() => router.push('/(auth)/terms')}
                                             >
@@ -372,12 +378,13 @@ export default function RegisterScreen() {
                                         alignItems: 'center' 
                                     }}>
                                         <Ionicons name="alert-circle" size={20} color="#DC2626" style={{ marginRight: 8 }} />
-                                        <Text style={{ color: '#DC2626', fontSize: 14, flex: 1 }}>{error}</Text>
+                                        <Text testID="register-error" style={{ color: '#DC2626', fontSize: 14, flex: 1 }}>{error}</Text>
                                     </View>
                                 ) : null}
 
                                 {/* Register Button */}
                                 <TouchableOpacity
+                                    testID="register-button"
                                     onPress={handleRegister}
                                     disabled={!agree || loading || googleLoading}
                                     activeOpacity={0.8}
@@ -454,7 +461,7 @@ export default function RegisterScreen() {
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 32 }}>
                                 <Text style={{ color: 'rgba(15, 40, 84, 0.75)', fontSize: 16 }}>Already have an account? </Text>
                                 <Link href="./login" asChild>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity testID="navigate-login">
                                         <Text style={{ color: '#1C4D8D', fontWeight: 'bold', fontSize: 16 }}>Sign In</Text>
                                     </TouchableOpacity>
                                 </Link>

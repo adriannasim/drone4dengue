@@ -18,7 +18,7 @@ export default function TermsPage() {
           >
             <Ionicons name="arrow-back" size={24} color="#181D27" />
           </TouchableOpacity>
-          <Text className="text-2xl font-extrabold text-[#181D27]" style={{ fontFamily: 'SF Pro' }}>
+          <Text testID="terms-title" className="text-2xl font-extrabold text-[#181D27]" style={{ fontFamily: 'SF Pro' }}>
             Terms and Privacy Policy
           </Text>
         </View>

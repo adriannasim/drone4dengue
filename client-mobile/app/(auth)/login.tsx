@@ -303,6 +303,7 @@ export default function LoginScreen() {
                     />
                     <TextInput
                       style={{ flex: 1, paddingVertical: 16, fontSize: 16, color: '#111827' }}
+                      testID="login-email"
                       placeholder="Enter your email"
                       placeholderTextColor="#9CA3AF"
                       value={email}
@@ -335,6 +336,7 @@ export default function LoginScreen() {
                     />
                     <TextInput
                       style={{ flex: 1, paddingVertical: 16, fontSize: 16, color: '#111827' }}
+                      testID="login-password"
                       placeholder="Enter your password"
                       placeholderTextColor="#9CA3AF"
                       value={password}
@@ -377,6 +379,7 @@ export default function LoginScreen() {
 
                 {/* Login Button */}
                 <TouchableOpacity
+                  testID="login-button"
                   onPress={handleLogin}
                   disabled={loginLoading || googleLoading}
                   activeOpacity={0.8}
@@ -448,7 +451,7 @@ export default function LoginScreen() {
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 32 }}>
                 <Text style={{ color: '#0F2854', fontSize: isTablet() ? 18 : 16, opacity: 0.7 }}>Don't have an account? </Text>
                 <Link href="./register" asChild>
-                  <TouchableOpacity>
+                  <TouchableOpacity testID="navigate-register">
                     <Text style={{ color: '#4988C4', fontWeight: 'bold', fontSize: isTablet() ? 18 : 16 }}>Sign Up</Text>
                   </TouchableOpacity>
                 </Link>

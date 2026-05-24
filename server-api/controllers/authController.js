@@ -31,12 +31,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
 const email_sender_email = process.env.SENDER_EMAIL;
 const email_sender_password = process.env.SENDER_EMAIL_PW;
 
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+// const twilioClient = twilio(
+//   process.env.TWILIO_ACCOUNT_SID,
+//   process.env.TWILIO_AUTH_TOKEN
+// );
 
-const twilio_phone_number = process.env.TWILIO_PHONE_NUMBER;
+// const twilio_phone_number = process.env.TWILIO_PHONE_NUMBER;
 
 // SMTP configurations for production compatibility
 const getEmailConfigs = () => [

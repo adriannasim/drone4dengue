@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node ./prisma/seed.js",
     "prisma-reset": "npx prisma migrate reset --force && npm run seed",
-    "prisma-migrate": "npx prisma migrate reset --force && npx prisma migrate dev --force && npm run seed"
+    "prisma-migrate": "npx prisma migrate reset --force && npx prisma migrate dev && npm run seed"
   },
   "keywords": [],
   "author": "",
